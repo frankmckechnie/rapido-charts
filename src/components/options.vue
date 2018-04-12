@@ -1,0 +1,80 @@
+<template>
+    <div>
+    <div class="nav">{{title.config}} 
+      <span @click="$emit('toggle-edit')"  class="icon-block-square code-icon ml-icon pull-right"></span> 
+      <span class=" icon-block-square medium-icon pull-right down-arrow" @click="toggleShow()" :class="showMenu"></span>
+    </div>
+    <div v-show="!edit" class="settings" :class="{'active': showMenu == 'up-icon'}">
+      <div class="field-block">
+        <label>Labels <span v-show="list != ''" class="pull-right">{{labels.length + " items"}}</span> <span class="error">{{texareaError}}</span></label>
+        <textarea v-model="list" @input="validateTextarea($event.target.value)" cols="30" rows="7"></textarea>
+      </div>
+      <ul class="tab-clicks animated fadeInLeft" :class="{'active': showMenu == 'up-icon'}">
+        <li @click="selectedCategory = index"  v-for="(field, index) in fields" :class="{ 'active': selectedCategory == index }">{{index}}</li>
+        <li @click="$emit('add-data')" class="plus-icon small-icon"></li>
+      </ul>
+      <data-set class="animated fadeIn" v-show="selectedCategory == index " v-for="(field, index) in fields" v-on:update-field="updateField" v-on:delete="deleteSet" :field="field" :version="index" :key="index"></data-set>
+    </div>
+  </div>
+</template>
+
+<script>
+import dataSet from './data-set'
+
+export default {
+  name: "options", 
+  components: {
+    dataSet
+  },
+  props: ["title", "labels", "fields", "edit"],
+  data: function() {
+    return {
+      showMenu: "down-icon",
+      selectedCategory: "",
+      texareaError: "",
+      list: ""
+    };
+  },
+  watch: {
+    labels: function(value) {
+      var newline = this.list.indexOf("\n") > -1;
+      var comma = this.list.indexOf(",") > -1;
+      this.list = this.labels.join(comma ? "," : "\n");
+    }
+  },
+  methods: {
+    toggleShow() {
+      this.showMenu = this.showMenu == "down-icon" ? "up-icon" : "down-icon";
+    },
+    deleteSet: function(version) {
+      this.$emit("delete", version);
+      this.selectedCategory = 0;
+    },
+    updateField: function(index, key, data) {
+      this.$emit("update-field", index, key, data);
+    },
+    validateTextarea: function(value) {
+      this.texareaError = "";
+      var newline = value.indexOf("\n") > -1;
+      var comma = value.indexOf(",") > -1;
+      var condition = (newline && comma) || value.trim() == "";
+
+      if (condition) {
+        this.texareaError = "Only use , or new line ";
+        return;
+      }
+      this.$emit("update", value, comma ? "," : "\n");
+    }
+  },
+  created() {
+    this.selectedCategory = 0;
+    this.list = this.labels.join(",");
+  }
+};
+
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style >
+
+</style>

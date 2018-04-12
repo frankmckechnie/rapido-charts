@@ -1,5 +1,5 @@
 <template>
-  <div id="rapido" class="container rela-block">
+  <div>
     
     <div class="callout">
      <div class="logo"></div>
@@ -20,11 +20,9 @@
             
 
         <editor v-show="isEdit" v-on:delete-set="deleteSet" editor-id="editor" lang="javascript" theme="twilight" :code="{labels:labels,datasets:dataSource}" v-on:change-content="changeContent" parent=".content"></editor>
-        
       </div>
 
-      <div class="charts pull-right " >
-        
+      <div class="charts pull-right " >        
         <chart-element :datasets="dataSource" :labels="labels"></chart-element>
       </div>
       
@@ -34,12 +32,17 @@
 
 <script>
 
-import HelloWorld from './components/HelloWorld'
+import options from './components/options'
+import editor from './components/editor'
+import chartElement from './components/chart-element'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    options,
+    editor,
+    chartElement
   },
   data: {
     isEdit: false,
@@ -102,5 +105,4 @@ export default {
 
 <style>
   @import '../assets/scss/main';
-
 </style>
