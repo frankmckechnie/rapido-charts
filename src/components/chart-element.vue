@@ -1,81 +1,71 @@
 <template>
-  <div :id="editorId" :style="styles"></div>
+<div >
+  <div class="header clearfix">
+    <span class="pull-left ">Size</span>
+    <input v-model="styles.width" class="size t-right" />
+    x
+    <input  v-model="styles.height" class="size" />
+    <div class="icon-block-square ml-icon pull-right" @click="switchComp(type)" :class="type+'-icon'" v-for="type in types">
+      <div class="tipt">{{type}}</div>
+    </div>
+    <span class="pull-right">Charts</span>
+  </div>
+  <div class="chart-inner" v-bind:style="styles">
+    <component :chart-data="charts" :is="dynamicComponent"></component>
+  <div>
+  </div>
 </template>
 
 <script>
+import barChart from './bar-chart'
+import radar from './Radar'
+import doughnut from './Doughnut'
+import lineChart from './line-chart'
+import pieChart from './pie-chart'
 
 export default {
-  name: "editor",
-  props: ["editorId", "code", "lang", "theme", "parent"],
+  name: "chart-element",
+    components: {
+    barChart,
+    radar,
+    doughnut,
+    lineChart,
+    pieChart
+  },
+  props: ["labels", "datasets"],
   data: function() {
     return {
-      editor: Object,
-      beforeContent: "",
-      styles: { width: "100%", height: "100%" }
+      dynamicComponent: "bar-chart",
+      types: ["bar-chart", "pie-chart", "line-chart", "Doughnut", "Radar"],
+      excaptions: ["line-chart", "Radar"],
+      styles: { width: " ", height: "" }
     };
   },
-  watch: {
-    code: function(value) {
-      var datasets = [];
-      for (var ary = 0; ary < value.datasets.length; ary++) {
-        var dataSet = {
-          label: JSON.parse(JSON.stringify(value.datasets[ary].label)),
-          backgroundColor: JSON.parse(
-            JSON.stringify(value.datasets[ary].backgroundColor)
-          ),
-          data: JSON.parse(JSON.stringify(value.datasets[ary].data))
-        };
-        datasets.push(dataSet);
-      }
-      var obj = JSON.stringify(
-        { labels: value.labels, datasets: datasets },
-        undefined,
-        2
-      );
-
-      if (this.beforeContent != obj) {
-        this.beforeContent = obj;
-        this.editor.setValue(obj, 1);
-      }
+  methods: {
+    switchComp: function(name) {
+      this.dynamicComponent = name;
     }
   },
-  mounted() {
-    const lang = this.lang;
-    const theme = this.theme;
-
-    this.styles.height =
-      document.querySelector(this.parent).offsetHeight - 54 + "px";
-    this.editor = window.ace.edit(this.editorId);
-
-    this.editor.setValue(JSON.stringify(this.code, undefined, 2), 1);
-
-    this.editor.getSession().setMode("ace/mode/" + lang);
-    this.editor.setTheme("ace/theme/" + theme);
-    var self = this;
-    this.editor.on("input", function(value) {
-      if (self.beforeContent !== self.editor.getValue()) {
-        var json = JSON.parse(self.editor.getValue());
-        var condition = json.datasets.length < self.code.datasets.length;
-
-        if (condition) {
-          var comapreObject = JSON.parse(self.beforeContent);
-          for (item in comapreObject.datasets) {
-            var deleteItem = 0;
-            for (var i in json.datasets) {
-              deleteItem =
-                JSON.stringify(comapreObject.datasets[item]) ==
-                JSON.stringify(json.datasets[i])
-                  ? deleteItem
-                  : deleteItem++;
-            }
-            deleteItem == 0 ? self.$emit("delete-set", item) : "";
-          }
+  computed: {
+    charts: function() {
+      if (this.excaptions.includes(this.dynamicComponent)) {
+        var arys = [];
+       
+        for(i in this.datasets){
+          arys.push({label: this.datasets[i].label, backgroundColor: this.datasets[i].backgroundColor[0], data: this.datasets[i].data});
         }
-
-        self.beforeContent = self.editor.getValue();
-        self.$emit("change-content", json);
+       
+        return {
+          labels: this.labels,
+          datasets: arys
+        };
+      } else {
+        return {
+          labels: this.labels,
+          datasets: this.datasets
+        };
       }
-    });
+    }
   }
 };
 
