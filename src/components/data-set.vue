@@ -1,6 +1,6 @@
 <template>
-     <div>\
-      <div class="field-block">\
+     <div>
+      <div class="field-block">
         <label>Data Title <span v-show="version != 0" @click="deleteDataSet()" class="icon-block x-icon medium-icon pull-right"></span></label>
         <input v-model="dataTitle" @input="$emit('update-field', version, 'label', $event.target.value)">
       </div>
@@ -13,7 +13,7 @@
       <div class="field-block">
         <label>Colors<span v-show="isNumeric(dataSet)" class="pull-right">{{this.field.data.length + " items"}}</span> <span class="error">{{texareaError}}</span></label>
         <div style="width: 100%">
-          <color v-for="item in this.field.data.length" :colors="field.backgroundColor" :version="version" v-on:update-field="updateColors" :item="item"></color>
+          <color v-for="item in this.field.data.length" :key="key" :colors="field.backgroundColor" :version="version" v-on:update-field="updateColors" :item="item"></color>
         </div>
         <label @click="activeLink = (activeLink) ? false : true; updateColors()" :class="{ 'active': activeLink }" class="btn-label">linked colors</label>
       </div>
@@ -77,12 +77,9 @@ export default {
     },
     updateColors: function(index, key, data) {
       if (this.activeLink) {
-        this.oldColors =
-          data != undefined
-            ? this.oldColors
-            : this.field.backgroundColor.slice();
+        this.oldColors = data != undefined ? this.oldColors : this.field.backgroundColor.slice();
         var ary = this.field.backgroundColor.slice();
-        for (i = 0; i < ary.length; ++i) {
+        for (var i = 0; i < ary.length; ++i) {
           ary[i] = ary[0];
         }
         this.oldColors[0] = ary[0];

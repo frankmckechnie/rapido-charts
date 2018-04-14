@@ -3,6 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 
+import jscolor from 'jscolor'
+import Chart from 'chart.js';
+
+import './assets/scss/main.scss'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

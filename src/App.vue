@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="rapido" class="container rela-block">
     
     <div class="callout">
      <div class="logo"></div>
@@ -19,51 +19,52 @@
         <options :fields="dataSource" v-on:add-data="addData" v-on:update-field="updateField" v-on:update="updateLabels" :edit="isEdit" v-on:toggle-edit="toogleEdit" v-on:delete="deleteSet" :labels="labels" :title="title"></options>
             
 
-        <editor v-show="isEdit" v-on:delete-set="deleteSet" editor-id="editor" lang="javascript" theme="twilight" :code="{labels:labels,datasets:dataSource}" v-on:change-content="changeContent" parent=".content"></editor>
+          <editor v-show="isEdit" v-on:delete-set="deleteSet" editor-id="editor" lang="javascript" theme="twilight" :code="{labels:labels,datasets:dataSource}" v-on:change-content="changeContent" parent=".content"></editor>
       </div>
 
       <div class="charts pull-right " >        
         <chart-element :datasets="dataSource" :labels="labels"></chart-element>
-      </div>
-      
+      </div>      
     </section>
+
   </div>
 </template>
 
 <script>
 
 import options from './components/options'
-import editor from './components/editor'
 import chartElement from './components/chart-element'
-
+import editor from './components/editor'
 
 export default {
   name: 'App',
   components: {
     options,
-    editor,
-    chartElement
+    chartElement,
+    editor
   },
-  data: {
-    isEdit: false,
-    title: { config: "Configuration" },
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    dataSource: [
-        {
-          label: "Data One",
-          backgroundColor: [
-            "rgba(255, 99, 132, 1)",
-            "rgba(54, 162, 235, 1)",
-            "rgba(255, 206, 86, 1)",
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)",
-            "rgba(255, 15, 24, 1)"
-          ],
-          data: [40, 39, 10, 40, 39, 80, 40]
-        }
-      ],
-      maxDataSet: 5
+  data: function(){
+    return{
+      isEdit: false,
+      title: { config: "Configuration" },
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      dataSource: [
+          {
+            label: "Data One",
+            backgroundColor: [
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(153, 102, 255, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 15, 24, 1)"
+            ],
+            data: [40, 39, 10, 40, 39, 80, 40]
+          }
+        ],
+        maxDataSet: 5
+    }
   },
   methods: {
     toogleEdit: function() {
@@ -72,8 +73,8 @@ export default {
     changeContent: function(json) {
       this.labels = json.labels;
 
-      for (item in json.datasets) {
-        this.dataSource[item] = json.datasets[item];
+      for (var i = 0; i < json.datasets.length; i++) {
+       this.dataSource[i] = json.datasets[i];
       }
     },
     deleteSet: function(index) {
@@ -104,5 +105,5 @@ export default {
 </script>
 
 <style>
-  @import '../assets/scss/main';
+ 
 </style>

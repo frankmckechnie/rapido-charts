@@ -1,5 +1,5 @@
 <template>
-<div >
+<div>
   <div class="header clearfix">
     <span class="pull-left ">Size</span>
     <input v-model="styles.width" class="size t-right" />
@@ -12,32 +12,33 @@
   </div>
   <div class="chart-inner" v-bind:style="styles">
     <component :chart-data="charts" :is="dynamicComponent"></component>
-  <div>
   </div>
+</div>
 </template>
 
 <script>
-import barChart from './bar-chart'
-import radar from './Radar'
-import doughnut from './Doughnut'
-import lineChart from './line-chart'
-import pieChart from './pie-chart'
+
+import barChart from './bar-chart.js'
+import radar from './radar.js'
+import pieChart from './pie-chart.js'
+import doughnut from './doughnut.js'
+import lineChart from './line-chart.js'
 
 export default {
   name: "chart-element",
     components: {
+    pieChart,
     barChart,
     radar,
     doughnut,
-    lineChart,
-    pieChart
+    lineChart
   },
   props: ["labels", "datasets"],
   data: function() {
     return {
       dynamicComponent: "bar-chart",
-      types: ["bar-chart", "pie-chart", "line-chart", "Doughnut", "Radar"],
-      excaptions: ["line-chart", "Radar"],
+      types: ["bar-chart", "pie-chart", "line-chart", "doughnut", "radar"],
+      excaptions: ["line-chart", "radar"],
       styles: { width: " ", height: "" }
     };
   },
@@ -51,7 +52,7 @@ export default {
       if (this.excaptions.includes(this.dynamicComponent)) {
         var arys = [];
        
-        for(i in this.datasets){
+        for(var i in this.datasets){
           arys.push({label: this.datasets[i].label, backgroundColor: this.datasets[i].backgroundColor[0], data: this.datasets[i].data});
         }
        
