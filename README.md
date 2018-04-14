@@ -1,5 +1,7 @@
 # rapido-charts
 
+http://46.101.2.41/rapido/ live demo
+
 > A simple application using charts.js, to allow users to embbed charts on there websites.
 
 ## Build Setup
