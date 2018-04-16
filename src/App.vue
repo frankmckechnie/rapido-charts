@@ -23,7 +23,7 @@
       </div>
 
       <div class="charts pull-right " >        
-        <chart-element :datasets="dataSource" :labels="labels"></chart-element>
+        <chart-element :titles="titles" :datasets="dataSource" :labels="labels"></chart-element>
       </div>      
     </section>
 
@@ -64,9 +64,7 @@ export default {
         }
       ],
       maxDataSet: 5,
-      heading: "",
-      labelx: "",
-      labely:""
+      titles: {heading: "",labelx: "", labely:""}
     }
   },
   methods: {
@@ -101,7 +99,7 @@ export default {
         });
       }
     }
-  }
+  },
 };
 
 

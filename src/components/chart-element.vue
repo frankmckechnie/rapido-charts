@@ -11,7 +11,7 @@
     <span class="pull-right">Charts</span>
   </div>
   <div class="chart-inner" v-bind:style="styles">
-    <component :chart-data="charts" :is="dynamicComponent"></component>
+    <component :chart-data="charts" :titles="titles" :is="dynamicComponent"></component>
   </div>
 </div>
 </template>
@@ -33,7 +33,7 @@ export default {
     doughnut,
     lineChart
   },
-  props: ["labels", "datasets"],
+  props: ["labels", "datasets", "titles"],
   data: function() {
     return {
       dynamicComponent: "bar-chart",
