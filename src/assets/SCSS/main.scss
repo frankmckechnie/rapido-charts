@@ -301,6 +301,7 @@ body::after {
       -webkit-transition: 0.3s cubic-bezier(0.75, 0, 0.2, 1), color 0.3s ease;
        transition: 0.3s cubic-bezier(0.75, 0, 0.2, 1), color 0.3s ease;
       position: relative;
+      height: 100%;
       .close-left{
         position: absolute;
         margin-left: -33px;
@@ -571,7 +572,26 @@ body::after {
         .icon-block-square:hover .tipt{
           opacity: 1;
         }
+        .exports{
 
+          .field{
+            margin-right: 10px;
+          }
+
+          .field select {
+              padding: 5px 8px;
+              //border: none;
+              box-shadow: none;
+              background: transparent;
+              background-image: none;
+              -webkit-appearance: none;
+          }
+
+          .field select:focus {
+              outline: none;
+          }
+
+        }
       }
       @media screen and (max-width: $break-min-desktop) {
         width: 100%;

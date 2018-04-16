@@ -33,7 +33,7 @@ export default {
         datasets.push(dataSet);
       }
       var obj = JSON.stringify(
-        { labels: value.labels, datasets: datasets },
+        { titles: {heading: value.titles.heading, labelx: value.titles.labelx, labely:value.titles.labely}, labels: value.labels, datasets: datasets },
         undefined,
         2
       );
@@ -45,6 +45,7 @@ export default {
     }
   },
   mounted() {
+
     const lang = this.lang;
     const theme = this.theme;
 

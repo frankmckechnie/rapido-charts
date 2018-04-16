@@ -9,38 +9,39 @@
 
       <div class="tab-nav">   
          <ul>  
-            <li :id="index"  v-for="(tab, index) in tabs"   @click="selectedTab = index"  :class="{ 'active': selectedTab == index }" class="">{{tab }}</li>
+            <li  v-for="(tab, index) in tabs"   @click="selectedTab = index"  :class="{ 'active': selectedTab == index }" class="">{{tab }}</li>
             <hr />
         </ul> 
       </div>
 
       <div v-show="selectedTab == 0 " >
-        <div  class="field-block">
-          <label>Labels <span v-show="list != ''" class="pull-right">{{labels.length + " items"}}</span> <span class="error">{{texareaError}}</span></label>
-          <textarea v-model="list" @input="validateTextarea($event.target.value)" cols="30" rows="7"></textarea>
-        </div>
+
         <ul class="tab-clicks animated fadeInLeft" :class="{'active': showMenu == 'up-icon'}">
           <li @click="selectedCategory = index"  v-for="(field, index) in fields" :class="{ 'active': selectedCategory == index }">{{index}}</li>
           <li @click="$emit('add-data')" class="plus-icon small-icon"></li>
         </ul>
-        <data-set class="animated fadeIn" v-show="selectedCategory == index " v-for="(field, index) in fields" v-on:update-field="updateField" v-on:delete="deleteSet" :field="field" :version="index" :key="index"></data-set>
+        <data-set class="animated fadeIn" v-show="selectedCategory == index " v-for="(field, index) in fields" v-on:update-field="updateField" v-on:delete="deleteSet" :field="field" :version="index" ></data-set>
       </div>
 
 
       <div v-show="selectedTab == 1 " >
         <div  class="field-block">
+          <label>Labels <span v-show="list != ''" class="pull-right">{{labels.length + " items"}}</span> <span class="error">{{texareaError}}</span></label>
+          <textarea v-model="list" @input="validateTextarea($event.target.value)" cols="30" rows="7"></textarea>
+        </div>
+        <div  class="field-block">
           <label>Chart heading </label>
-          <input>
+          <input :value="titles.heading" v-on:input="$emit('titles-update', 'heading' ,$event.target.value)">
         </div>
 
         <div  class="field-block">
-          <label>left label </label>
-          <input>
+          <label>Label X </label>
+          <input :value="titles.labelx" v-on:input="$emit('titles-update', 'labelx' ,$event.target.value)">
         </div>
 
         <div  class="field-block">
-          <label>bottom label</label>
-          <input>
+          <label>bLabel Y </label>
+          <input :value="titles.labely" v-on:input="$emit('titles-update', 'labely' ,$event.target.value)">
         </div>        
       </div>
 
@@ -56,15 +57,15 @@ export default {
   components: {
     dataSet
   },
-  props: ["title", "labels", "fields", "edit"],
+  props: ["title", "labels", "fields", "edit", "titles"],
   data: function() {
     return {
       showMenu: "down-icon",
-      tabs: ["Data", "Titles"],
+      tabs: ["Data", "Labels"],
       selectedCategory: "",
       texareaError: "",
       list: "",
-      selectedTab: 1
+      selectedTab: 0
     };
   },
   watch: {

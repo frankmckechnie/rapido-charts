@@ -1,10 +1,9 @@
 <template>
-<div>
+<div :style="{backgroundColor: bgColor}">
   <div class="header clearfix">
-    <span class="pull-left ">Size</span>
-    <input v-model="styles.width" class="size t-right" />
-    x
-    <input  v-model="styles.height" class="size" />
+
+    <imgExports></imgExports>
+
     <div class="icon-block-square ml-icon pull-right" @click="switchComp(type)" :class="type+'-icon'" v-for="type in types">
       <div class="tipt">{{type}}</div>
     </div>
@@ -13,6 +12,7 @@
   <div class="chart-inner" v-bind:style="styles">
     <component :chart-data="charts" :titles="titles" :is="dynamicComponent"></component>
   </div>
+ 
 </div>
 </template>
 
@@ -24,6 +24,8 @@ import pieChart from './pie-chart.js'
 import doughnut from './doughnut.js'
 import lineChart from './line-chart.js'
 
+import imgExports from './img-exports'
+
 export default {
   name: "chart-element",
     components: {
@@ -31,7 +33,8 @@ export default {
     barChart,
     radar,
     doughnut,
-    lineChart
+    lineChart,
+    imgExports
   },
   props: ["labels", "datasets", "titles"],
   data: function() {
@@ -39,7 +42,9 @@ export default {
       dynamicComponent: "bar-chart",
       types: ["bar-chart", "pie-chart", "line-chart", "doughnut", "radar"],
       excaptions: ["line-chart", "radar"],
-      styles: { width: " ", height: "" }
+      styles: { width: " ", height: "" },
+      bgColor: "#fff",
+      imgExports: ["JPG", "PNG"]
     };
   },
   methods: {
