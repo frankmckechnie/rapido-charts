@@ -4,9 +4,10 @@
 
 <script>
 
-import ace from 'ace-builds';
+import * as ace from 'brace';
 
-console.log(ace);
+require('brace/mode/javascript');
+require('brace/theme/monokai');
 
 export default {
   name: "editor",
@@ -53,8 +54,8 @@ export default {
 
     this.editor.setValue(JSON.stringify(this.code, undefined, 2), 1);
 
-    //this.editor.getSession().setMode("ace/mode/" + lang);
-    //this.editor.setTheme("ace/theme/" + theme);
+    this.editor.getSession().setMode("ace/mode/" + lang);
+    this.editor.setTheme("ace/theme/" + theme);
     var self = this;
     this.editor.on("input", function(value) {
       if (self.beforeContent !== self.editor.getValue()) {

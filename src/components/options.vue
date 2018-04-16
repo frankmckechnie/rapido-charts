@@ -1,19 +1,44 @@
 <template>
-    <div>
-    <div class="nav">{{title.config}} 
+  <div>
+    <div class="nav">{{title.config}}      
       <span @click="$emit('toggle-edit')"  class="icon-block-square code-icon ml-icon pull-right"></span> 
       <span class=" icon-block-square medium-icon pull-right down-arrow" @click="toggleShow()" :class="showMenu"></span>
     </div>
+
     <div v-show="!edit" class="settings" :class="{'active': showMenu == 'up-icon'}">
-      <div class="field-block">
-        <label>Labels <span v-show="list != ''" class="pull-right">{{labels.length + " items"}}</span> <span class="error">{{texareaError}}</span></label>
-        <textarea v-model="list" @input="validateTextarea($event.target.value)" cols="30" rows="7"></textarea>
+
+      <div class="tab-nav">   
+         <ul>  
+            <li :id="index"  v-for="(tab, index) in tabs"   @click="selectedTab = index"  :class="{ 'active': selectedTab == index }" class="">{{tab }}</li>
+            <hr :style="{marginLeft: '0%' }" />
+        </ul> 
       </div>
-      <ul class="tab-clicks animated fadeInLeft" :class="{'active': showMenu == 'up-icon'}">
-        <li @click="selectedCategory = index"  v-for="(field, index) in fields" :class="{ 'active': selectedCategory == index }">{{index}}</li>
-        <li @click="$emit('add-data')" class="plus-icon small-icon"></li>
-      </ul>
-      <data-set class="animated fadeIn" v-show="selectedCategory == index " v-for="(field, index) in fields" v-on:update-field="updateField" v-on:delete="deleteSet" :field="field" :version="index" :key="index"></data-set>
+
+      <div v-show="selectedTab == 0 " >
+        <div  class="field-block">
+          <label>Labels <span v-show="list != ''" class="pull-right">{{labels.length + " items"}}</span> <span class="error">{{texareaError}}</span></label>
+          <textarea v-model="list" @input="validateTextarea($event.target.value)" cols="30" rows="7"></textarea>
+        </div>
+        <ul class="tab-clicks animated fadeInLeft" :class="{'active': showMenu == 'up-icon'}">
+          <li @click="selectedCategory = index"  v-for="(field, index) in fields" :class="{ 'active': selectedCategory == index }">{{index}}</li>
+          <li @click="$emit('add-data')" class="plus-icon small-icon"></li>
+        </ul>
+        <data-set class="animated fadeIn" v-show="selectedCategory == index " v-for="(field, index) in fields" v-on:update-field="updateField" v-on:delete="deleteSet" :field="field" :version="index" :key="index"></data-set>
+      </div>
+
+
+      <div v-show="selectedTab == 1 " >
+        <div  class="field-block">
+          <label>Labels <span v-show="list != ''" class="pull-right">{{labels.length + " items"}}</span> <span class="error">{{texareaError}}</span></label>
+          <textarea v-model="list" @input="validateTextarea($event.target.value)" cols="30" rows="7"></textarea>
+        </div>
+        <ul class="tab-clicks animated fadeInLeft" :class="{'active': showMenu == 'up-icon'}">
+          <li @click="selectedCategory = index"  v-for="(field, index) in fields" :class="{ 'active': selectedCategory == index }">{{index}}</li>
+          <li @click="$emit('add-data')" class="plus-icon small-icon"></li>
+        </ul>
+        <data-set class="animated fadeIn" v-show="selectedCategory == index " v-for="(field, index) in fields" v-on:update-field="updateField" v-on:delete="deleteSet" :field="field" :version="index" :key="index"></data-set>
+      </div>
+
     </div>
   </div>
 </template>
@@ -30,9 +55,11 @@ export default {
   data: function() {
     return {
       showMenu: "down-icon",
+      tabs: ["Data", "Titles"],
       selectedCategory: "",
       texareaError: "",
-      list: ""
+      list: "",
+      selectedTab: 1
     };
   },
   watch: {

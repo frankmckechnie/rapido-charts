@@ -1,5 +1,5 @@
 <template>
-     <div>
+     <div >
       <div class="field-block">
         <label>Data Title <span v-show="version != 0" @click="deleteDataSet()" class="icon-block x-icon medium-icon pull-right"></span></label>
         <input v-model="dataTitle" @input="$emit('update-field', version, 'label', $event.target.value)">

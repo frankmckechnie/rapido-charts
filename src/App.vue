@@ -19,7 +19,7 @@
         <options :fields="dataSource" v-on:add-data="addData" v-on:update-field="updateField" v-on:update="updateLabels" :edit="isEdit" v-on:toggle-edit="toogleEdit" v-on:delete="deleteSet" :labels="labels" :title="title"></options>
             
 
-          <editor v-show="isEdit" v-on:delete-set="deleteSet" editor-id="editor" lang="javascript" theme="twilight" :code="{labels:labels,datasets:dataSource}" v-on:change-content="changeContent" parent=".content"></editor>
+          <editor v-show="isEdit" v-on:delete-set="deleteSet" editor-id="editor" lang="javascript" theme="monokai" :code="{labels:labels,datasets:dataSource}" v-on:change-content="changeContent" parent=".content"></editor>
       </div>
 
       <div class="charts pull-right " >        

@@ -7,17 +7,10 @@ export default {
   mixins: [reactiveProp],
   data: function(){
     return {
-     options:  {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero: true
-            }
-        }]
+       options:  {
+        responsive: true,
+        maintainAspectRatio: false
       }
-    }
     }
   },
   mounted: function() {

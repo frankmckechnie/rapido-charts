@@ -9,15 +9,8 @@ export default {
     return {
      options:  {
       responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero: true
-            }
-        }]
+      maintainAspectRatio: false
       }
-    }
     }
   },
   mounted: function() {
