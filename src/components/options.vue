@@ -10,7 +10,7 @@
       <div class="tab-nav">   
          <ul>  
             <li :id="index"  v-for="(tab, index) in tabs"   @click="selectedTab = index"  :class="{ 'active': selectedTab == index }" class="">{{tab }}</li>
-            <hr :style="{marginLeft: '0%' }" />
+            <hr />
         </ul> 
       </div>
 
@@ -29,14 +29,19 @@
 
       <div v-show="selectedTab == 1 " >
         <div  class="field-block">
-          <label>Labels <span v-show="list != ''" class="pull-right">{{labels.length + " items"}}</span> <span class="error">{{texareaError}}</span></label>
-          <textarea v-model="list" @input="validateTextarea($event.target.value)" cols="30" rows="7"></textarea>
+          <label>Chart heading </label>
+          <input>
         </div>
-        <ul class="tab-clicks animated fadeInLeft" :class="{'active': showMenu == 'up-icon'}">
-          <li @click="selectedCategory = index"  v-for="(field, index) in fields" :class="{ 'active': selectedCategory == index }">{{index}}</li>
-          <li @click="$emit('add-data')" class="plus-icon small-icon"></li>
-        </ul>
-        <data-set class="animated fadeIn" v-show="selectedCategory == index " v-for="(field, index) in fields" v-on:update-field="updateField" v-on:delete="deleteSet" :field="field" :version="index" :key="index"></data-set>
+
+        <div  class="field-block">
+          <label>left label </label>
+          <input>
+        </div>
+
+        <div  class="field-block">
+          <label>bottom label</label>
+          <input>
+        </div>        
       </div>
 
     </div>
