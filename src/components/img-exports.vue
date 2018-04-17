@@ -1,7 +1,8 @@
 <template>
   <div class="exports">
       <div class="pull-left field">
-          <span class="pull-left ">Size</span>
+        <span class="pull-left ">Size</span>
+        <span class="icon-block-square ml-icon right-arrow-icon pull-left"></span>
         <input v-model="styles.width" class="size t-right" />
         x
         <input  v-model="styles.height" class="size" />
@@ -9,7 +10,13 @@
       
       <div class="pull-left field">
         <span class="pull-left ">Type</span>
+         <span class="icon-block-square ml-icon right-arrow-icon pull-left"></span>
         <select><option v-for="imgExport in imgExports" >{{imgExport}}</option></select>
+      </div>
+
+      <div class="pull-left field">
+      <span class="icon-block-square ml-icon right-arrow-icon pull-left"></span>
+        <div class="btn-export pull-left">Export</div>
       </div>
   </div>
 </template>
