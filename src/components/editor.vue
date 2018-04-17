@@ -7,7 +7,7 @@
 import * as ace from 'brace';
 
 require('brace/mode/javascript');
-require('brace/theme/monokai');
+require('brace/theme/twilight');
 
 export default {
   name: "editor",

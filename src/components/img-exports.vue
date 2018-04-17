@@ -15,8 +15,8 @@
       </div>
 
       <div class="pull-left field">
-      <span class="icon-block-square ml-icon right-arrow-icon pull-left"></span>
-        <div class="btn-export pull-left">Export</div>
+        <div class="btn-export pull-left">      <span class="icon-block-square ml-icon right-arrow-icon pull-left"></span>
+ Export</div>
       </div>
   </div>
 </template>
