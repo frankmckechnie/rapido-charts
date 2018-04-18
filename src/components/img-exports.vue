@@ -15,6 +15,7 @@
       </div>
 
       <div class="pull-left field">
+        <span class="icon-block-square ml-icon right-arrow-icon pull-left"></span>
         <input type="" @change="changeColor($event.target.value);" class="jscolor no-font color-input" name="">
       </div>
 
@@ -39,45 +40,54 @@ export default {
       styles: { width: "940", height: "400" },
       selected: "png",
       href: "",
-      context: "",
-      color: "#fff"
+      context: false,
+      color: "#fff",
+      rect: false
     };
   },
   methods: {
     changeColor: function(bg){
+      if(this.context){
+        var canvas = this.context.canvas;
 
+        var w = canvas.width;
+        var h = canvas.height;
 
-      var context = document.getElementById(this.type).getContext('2d');
+        //clear the canvas
+        this.context.clearRect(0,0,w,h);
 
-      var canvas = context.canvas;
+        //restore it with original / cached ImageData
+        this.context.putImageData(this.rect, 0,0);
 
-      var w = canvas.width;
-      var h = canvas.height;
+        //set to draw behind current content
+        this.context.globalCompositeOperation = "destination-over";
 
-      var data;
+        this.context.fillStyle = "#" + bg;
+        this.context.fillRect(0,0,w,h);
 
-      //get the current ImageData for the canvas.
-      data = context.getImageData(0, 0, w, h);
+      }else{
+        this.context = document.getElementById(this.type).getContext('2d');
 
-      //store the current globalCompositeOperation
-      var compositeOperation = context.globalCompositeOperation;
+        var canvas = this.context.canvas;
 
-      //set to draw behind current content
-      context.globalCompositeOperation = "destination-over";
+        var w = canvas.width;
+        var h = canvas.height;
 
-      //draw background / rect on entire canvas
-      context.fillStyle = "#" + bg;
+        //get the current ImageData for the canvas.
+        this.rect = this.context.getImageData(0, 0, w, h);
 
-      context.fillRect(0,0,w,h);
-  
-      //clear the canvas
-      context.clearRect (0,0,w,h);
+        //store the current globalCompositeOperation
+        var compositeOperation = this.context.globalCompositeOperation;
 
-      //restore it with original / cached ImageData
-      context.putImageData(data, 0,0);
+        //set to draw behind current content
+        this.context.globalCompositeOperation = "destination-over";
 
-      //reset the globalCompositeOperation to what it was
-      context.globalCompositeOperation = compositeOperation;
+        //draw background / rect on entire canvas
+        this.context.fillStyle = "#" + bg;
+
+        this.context.fillRect(0,0,w,h);
+
+      }
     },
     exportImage: function(el){
       var originalCanvas = document.getElementById(this.type);

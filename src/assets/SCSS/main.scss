@@ -1,5 +1,6 @@
 // load reset
 @import 'reset';
+@import 'mixins';
 @import url(https://fonts.googleapis.com/css?family=Raleway);
 
 // animte css 
@@ -192,6 +193,7 @@ body::after {
 
 // main container of the page
 .container {
+  @include noSelect;
   z-index: 1;
   width: 92%;
   max-width: 1400px;
@@ -634,8 +636,10 @@ body::after {
   .color-input{
     width: 50px;
     height: 20px;
+    margin-top: 4px;
     margin-right: 5px;
-    border: 1px solid #282828;
+    float: left;
+    border: 1px solid #a8a8a8; 
   }
   
   @media screen and (max-width: $break-desktop) { // 1300px;
