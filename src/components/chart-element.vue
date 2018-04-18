@@ -4,10 +4,12 @@
 
     <imgExports :type="dynamicComponent"></imgExports>
 
-    <div class="icon-block-square ml-icon pull-right" @click="switchComp(type)" :class="type+'-icon'" v-for="type in types">
-      <div class="tipt">{{type}}</div>
+    <div class="chart-types">
+      <div class="icon-block-square ml-icon pull-right" @click="switchComp(type)" :class="type+'-icon'" v-for="type in types">
+        <div class="tipt">{{type}}</div>
+      </div>
+      <span class="pull-right">Charts</span>
     </div>
-    <span class="pull-right">Charts</span>
   </div>
   <div class="chart-inner" v-bind:style="styles">
     <component :chart-data="charts" :titles="titles" :is="dynamicComponent"></component>

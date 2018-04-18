@@ -201,6 +201,7 @@ body::after {
   padding: 0;
   -webkit-transition: 0.3s cubic-bezier(0.75, 0, 0.2, 1), color 0.3s ease;
   transition: 0.3s cubic-bezier(0.75, 0, 0.2, 1), color 0.3s ease;
+
   .callout{
     width: 100%;
     margin-bottom: 0px;
@@ -230,6 +231,10 @@ body::after {
       
       @media screen and (max-width: $break-min-desktop) { //1000px;
         background-size: 100%;
+      }
+
+      @media screen and (max-width: $break-mobile) { // $break-mobile: 320px;
+        background-size: 130%;
       }
       
     }
@@ -326,6 +331,7 @@ body::after {
         z-index: 10;
         left: 0;
         text-align: center;
+         
          li{
             padding: 10px;
             display: block;
@@ -334,19 +340,45 @@ body::after {
             background-color: lighten($bg-color, 2%);
             cursor: pointer;           
           }
+          
+          li:last-of-type{
+            padding: 15px 10px;
+          }
+          li:hover{
+            opacity: 0.5;
+          }
+          @media screen and (max-width: $break-tablet) {
+            display: none;
+          }
+
+          @media screen and (max-width: $break-mobile) { // $break-mobile: 320px;
+            position: relative;
+            display: inline-block;
+            background-size: contain;
+            margin: 0px;  
+            background-color: lighten($bg-color, 5%);
+            li{
+              float: left;
+              width: 40px;
+              height: 40px; 
+              margin-bottom: 0px; 
+              padding: 8px 0px;
+              &:hover{
+               opacity: 1;
+              }   
+            }
+            
+            &::after{
+              content: "";
+              clear: both;
+              display: table;
+            }
+          }
+
           .active{
             background-color: darken($bg-color, 2%);
           }
-        
-        li:last-of-type{
-          padding: 15px 10px;
-        }
-        li:hover{
-          opacity: 0.5;
-        }
-        @media screen and (max-width: $break-tablet) {
-          display: none;
-        }
+
       }
       .active{
         display: block;
@@ -536,15 +568,7 @@ body::after {
           padding-right: 5px;
           margin-right: 5px;
         }
-        
-        .size{
-          width: 45px;
-          height: 100%;
-          padding: 5px 8px;
-          margin: 0px 2px;
-          border: 0px;
-          border-bottom: 1px solid lighten($bg-color, 50%);            
-        }
+      
        
         .tipt {
           padding: 6px 10px;
@@ -574,7 +598,17 @@ body::after {
         .icon-block-square:hover .tipt{
           opacity: 1;
         }
+
         .exports{
+
+          .size{
+            width: 45px;
+            height: 100%;
+            padding: 5px 8px;
+            margin: 0px 2px;
+            border: 0px;
+            border-bottom: 1px solid lighten($bg-color, 50%);            
+          }
 
           .field{
             margin-right: 10px;
@@ -582,7 +616,6 @@ body::after {
 
           span{
             font-size: 14px;
-            //border-right: 1px solid #eee;
             padding-right: 0px;
             margin-right: 14px;
           }
@@ -617,7 +650,43 @@ body::after {
             float: right;
           }
 
+          @media screen and (max-width:  $break-tablet) { // $break-mobile: 320px;
+            text-align: center;
+            margin-bottom: 20px;
+            overflow: auto;
+            border-bottom: 1px solid lighten($bg-color, 50%);   
+            .field{
+              display: block;
+              width: 100%;
+              margin: 0px auto 10px auto;
+            }
+
+            .size{
+              width: 45%;
+            }
+
+            .field select{
+              width: 100%;
+            }
+            .btn-export{
+              width: 100%;
+            }
+            .right-arrow-icon{
+               transform: rotate(90deg);
+               margin-left: 46%;
+            }
+          }
+
         }
+
+
+
+        @media screen and (max-width:  $break-min-desktop) { // $break-mobile: 320px;
+          .chart-types{
+            float: left;
+          }
+        }
+
       }
       @media screen and (max-width: $break-min-desktop) {
         width: 100%;
@@ -640,10 +709,14 @@ body::after {
     margin-right: 5px;
     float: left;
     border: 1px solid #a8a8a8; 
+
+    @media screen and (max-width: $break-tablet) { 
+      width: 100%;
+    }
   }
   
   @media screen and (max-width: $break-desktop) { // 1300px;
-    max-width: 843px;
+    max-width: 960px;
   }
   
   @media screen and (max-width: $break-min-desktop) { //1000px;
@@ -655,7 +728,9 @@ body::after {
   }
   
   @media screen and (max-width: $break-mobile) { // $break-mobile: 320px;
-    max-width: 70%;
+    width: 92%;
+    max-width: 100%;
+    margin: 30px auto 10px auto;
   }
 }
 

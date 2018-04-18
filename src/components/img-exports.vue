@@ -1,7 +1,7 @@
 <template>
   <div class="exports">
+  <span class="pull-left"> Export Settings</span>
       <div class="pull-left field">
-        <span> Export Settings:</span>
         <input v-model="styles.width" class="size t-right" />
         x
         <input  v-model="styles.height" class="size" />
@@ -16,7 +16,7 @@
 
       <div class="pull-left field">
         <span class="icon-block-square ml-icon right-arrow-icon pull-left"></span>
-        <input type="" @change="changeColor($event.target.value);" class="jscolor no-font color-input" name="">
+        <input type="" @change="changeColor($event.target.value);" class="jscolor no-font color-input" name="" />
       </div>
 
       <div class="pull-left field">
