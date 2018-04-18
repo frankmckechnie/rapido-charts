@@ -46,7 +46,6 @@ export default {
   methods: {
     changeColor: function(bg){
 
-
       var context = document.getElementById(this.type).getContext('2d');
 
       var canvas = context.canvas;
