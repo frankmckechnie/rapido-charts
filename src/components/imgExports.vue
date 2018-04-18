@@ -2,7 +2,7 @@
 <div :style="{backgroundColor: bgColor}">
   <div class="header clearfix">
 
-    <imgExports :type="dynamicComponent"></imgExports>
+    <imgExports></imgExports>
 
     <div class="icon-block-square ml-icon pull-right" @click="switchComp(type)" :class="type+'-icon'" v-for="type in types">
       <div class="tipt">{{type}}</div>

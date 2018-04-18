@@ -50,7 +50,7 @@ export default {
       labels: ["January", "February", "March", "April", "May", "June", "July"],
       dataSource: [
         {
-          label: "Data One",
+          label: "This years loss",
           backgroundColor: [
             "rgba(255, 99, 132, 1)",
             "rgba(54, 162, 235, 1)",

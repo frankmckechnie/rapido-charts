@@ -531,12 +531,12 @@ body::after {
         span{
           font-size: 14px;
           //border-right: 1px solid #eee;
-          //padding-right: 5px;
+          padding-right: 5px;
           margin-right: 5px;
         }
         
         .size{
-          width: 60px;
+          width: 45px;
           height: 100%;
           padding: 5px 8px;
           margin: 0px 2px;
@@ -578,6 +578,13 @@ body::after {
             margin-right: 10px;
           }
 
+          span{
+            font-size: 14px;
+            //border-right: 1px solid #eee;
+            padding-right: 0px;
+            margin-right: 14px;
+          }
+
           .field select {
               padding: 5px 8px;
               border: none;
@@ -593,21 +600,15 @@ body::after {
           }
 
           .btn-export{
-            //background: $primary;
-            border-bottom: 1px solid lighten($bg-color, 50%);            
-            padding: 2px 10px 1px 0px;
+            //border-bottom: 1px solid lighten($bg-color, 50%);            
+            padding: 2px 10px 2px 10px;
             font-size: 14px;
             cursor: pointer;
+            background: $primary;
+            color: #fff;            
           }
           .btn-export:hover{
-            //opacity: 0.8;
-            border: 0px;
-            //background: $primary;
-            //color: #fff;
-            //border: 1px solid lighten($bg-color, 50%);  
-            padding: 1px 0px 1px 10px;
-                  -webkit-transition: 0.3s cubic-bezier(0.75, 0, 0.2, 1), color 0.3s ease;
-      transition: 0.3s cubic-bezier(0.75, 0, 0.2, 1), color 0.3s ease;
+            opacity: 0.8;
           }
 
           .btn-export:hover > span{
@@ -629,6 +630,12 @@ body::after {
   
   .no-font{
     font-size: 0px !important;
+  }
+  .color-input{
+    width: 50px;
+    height: 20px;
+    margin-right: 5px;
+    border: 1px solid #282828;
   }
   
   @media screen and (max-width: $break-desktop) { // 1300px;
