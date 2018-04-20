@@ -62,5 +62,6 @@ export default {
   },
   mounted: function() {
     this.renderChart(this.chartData, this.options);
+    console.log(this.$refs);
   }
 };

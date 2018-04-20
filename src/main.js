@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 
+import './mixins/polyfill'
 import jscolor from 'jscolor'
 import Chart from 'chart.js';
 
