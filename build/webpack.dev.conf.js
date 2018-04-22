@@ -55,7 +55,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true
+      inject: true,
+      title: "RapidoCharts",
+      meta: {viewport: 'width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no, shrink-to-fit=no'}
     }),
     // copy custom static assets
     new CopyWebpackPlugin([

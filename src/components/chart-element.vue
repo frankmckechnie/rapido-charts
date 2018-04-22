@@ -46,33 +46,73 @@ export default {
       excaptions: ["line-chart", "radar"],
       styles: { width: " ", height: "" },
       bgColor: "#fff",
-      imgExports: ["JPG", "PNG"]
+      imgExports: ["JPG", "PNG"],
+      notMounted: false 
     };
   },
   methods: {
     switchComp: function(name) {
       this.dynamicComponent = name;
+    },
+     msieversion: function() {
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf('MSIE ');
+      if (msie > 0) {
+          // IE 10 or older => return version number
+          return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+      }
+
+      var trident = ua.indexOf('Trident/');
+      if (trident > 0) {
+          // IE 11 => return version number
+          var rv = ua.indexOf('rv:');
+          return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+      }
+
+      var edge = ua.indexOf('Edge/');
+      if (edge > 0) {
+         // Edge (IE 12+) => return version number
+         return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+      }
+
+      // other browser
+      return false;
     }
+  },
+  mounted: function(){
+    if(this.msieversion()){
+      setInterval(function(){ 
+         this.notMounted = true;
+      }.bind(this), 100) ;
+    }else{
+      this.notMounted = true;
+    }
+
   },
   computed: {
     charts: function() {
-      if (this.excaptions.includes(this.dynamicComponent)) {
-        var arys = [];
-       
-        for(var i in this.datasets){
-          arys.push({label: this.datasets[i].label, backgroundColor: this.datasets[i].backgroundColor[0], data: this.datasets[i].data});
-        }
-       
-        return {
-          labels: this.labels,
-          datasets: arys
-        };
-      } else {
-        return {
-          labels: this.labels,
-          datasets: this.datasets
-        };
+      if(this.notMounted){
+        if (this.excaptions.includes(this.dynamicComponent)) {
+          var arys = [];
+         
+          for(var i in this.datasets){
+            arys.push({label: this.datasets[i].label, backgroundColor: this.datasets[i].backgroundColor[0], data: this.datasets[i].data});
+          }
+         
+          return {
+            labels: this.labels,
+            datasets: arys
+          };
+        } else {
+          return {
+            labels: this.labels,
+            datasets: this.datasets
+          };
+        } 
+      }else{
+        return null;
       }
+
     }
   }
 };

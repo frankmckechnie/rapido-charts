@@ -103,9 +103,15 @@ export default {
       setTimeout(function(){
         var img    = originalCanvas.toDataURL("image/"+ this.selected);
         img = img.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
+
+        if (originalCanvas.msToBlob) { //for IE
+            var blob = originalCanvas.msToBlob();
+            window.navigator.msSaveBlob(blob, this.name);
+        } else {
+          this.$refs['downloadLink'].href = img;
+          this.$refs['downloadLink'].click();
+        }
         
-        this.$refs['downloadLink'].href = img;
-        this.$refs['downloadLink'].click();
         originalCanvas.parentElement.style.height =  "auto";
         originalCanvas.parentElement.style.width = "auto";
         originalCanvas.style.height = h;

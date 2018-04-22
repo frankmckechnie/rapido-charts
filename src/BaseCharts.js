@@ -7,6 +7,7 @@ export function generateChart (chartId, chartType) {
         'div', {
           style: this.styles,
           class: this.cssClasses
+
         },
         [
           createElement(
@@ -59,21 +60,6 @@ export function generateChart (chartId, chartType) {
     },
 
     methods: {
-      msieversion() {
-        var ua = window.navigator.userAgent;
-        var msie = ua.indexOf("MSIE ");
-
-        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
-        {
-            console.log(parseInt(ua.substring(msie + 5, ua.indexOf(".", msie))));
-        }
-        else  // If another browser, return 0
-        {
-            console.log('otherbrowser');
-        }
-
-        return false;
-      },
       addPlugin (plugin) {
         this.$data._plugins.push(plugin)
       },
@@ -86,22 +72,6 @@ export function generateChart (chartId, chartType) {
             plugins: this.$data._plugins
           }
         );
-        console.log(this.msieversion());
-        if(this.msieversion()){
-
-          setTimeout(function(){
-            var originalCanvas = this.$refs.canvas;
-
-            var h = originalCanvas.style.height;
-            var w = originalCanvas.style.width;
-
-            originalCanvas.parentElement.style.height = h;
-            originalCanvas.parentElement.style.width = w;      
-
-          }.bind(this),1000)
-
-        }
-
       }
     },
     beforeDestroy () {
