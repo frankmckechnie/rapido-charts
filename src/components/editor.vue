@@ -65,7 +65,7 @@ export default {
 
         if (condition) {
           var comapreObject = JSON.parse(self.beforeContent);
-          for (item in comapreObject.datasets) {
+          for (var item in comapreObject.datasets) {
             var deleteItem = 0;
             for (var i in json.datasets) {
               deleteItem =
